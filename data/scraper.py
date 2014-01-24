@@ -2,7 +2,7 @@ import urllib.request
 from os import getcwd
 from os import sep
 from os import mkdir 
-
+##
 #http://www.football-data.co.uk/mmz4281/1314/D1.csv
 countries =  ["England","Germany","Spain","Italy","France"]
 
