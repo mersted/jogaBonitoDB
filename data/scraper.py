@@ -2,6 +2,7 @@ import urllib.request
 from os import getcwd
 from os import sep
 from os import mkdir 
+import csv
 ##
 #http://www.football-data.co.uk/mmz4281/1314/D1.csv
 countries =  ["England","Germany","Spain","Italy","France"]
@@ -39,11 +40,31 @@ def query(locale): #takes in the country and scrapes that countries data
     print("Finally Done")
 
 
+# Idea for how to read the data from csv files - Matt Ersted
+def gatherData():
+    aDict = {}
+    for country in countries:
+        for year in season:
+            filename = directory + sep + country + sep + year + '.csv' 
+            with open(filename, 'rb') as f:
+                reader = csv.reader(f)
+                i = 0
+                for row in reader:
+                    if i == 0:
+                        headers = row
+                    else:
+                        homeTeam = row[2]
+                        gameData = row[1:2] + row[3:23]
+                        if homeTeam not in aDict.keys():
+                            aDict[homeTeam] = (gameData,)
+                        else:
+                            aDict[homeTeam] += (gameData,)
+                    i += 1
+
+
 query("Germany")
 query("England")
 query("Spain")
 query("France")
 query("Italy")
-
-    
             
